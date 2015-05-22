@@ -1,12 +1,4 @@
-// start slingin' some d3 here.
 
-          
-
-// Pseudo-pseudocode
-
-// Initialization
-// 1. Game Board
-  // Establish game board parameters
 var width = 500;
 var height = 400;
 var gameBoard = d3.select('body').append('svg:svg')
@@ -16,24 +8,24 @@ var gameBoard = d3.select('body').append('svg:svg')
 
 var numEnemies = 10;
 
-  // Create HTML element representing game board
-  // "D3"-ify the game board with board parameters / other shared functionality
-// 2. Game Pieces
-  // For each kind of game piece...
-    // Establish piece parameters
-var createEnemies = _.range(0, numEnemies).map(function(i) {
-  return {
-    id: i,
-    x: Math.random() * width,
-    y: Math.random() * height
-  };
-});
+var createEnemies = function(){
+  return _.range(0, numEnemies).map(function(i) {
+     return {
+      id: i,
+      x: Math.random() * width,
+      y: Math.random() * height
+    };
+  });
+};
+
+
 
 var render = function(enemy_data){
   var enemies = gameBoard.selectAll('circle.enemy')
-                         .data(enemy_data, function(d){
-                          return d.id;
-                         });
+    .data(enemy_data, function(d){
+      return d.id;
+    });
+
   enemies.enter()
     .append('svg:circle')
     .style('fill', 'red')
@@ -49,15 +41,28 @@ var render = function(enemy_data){
   enemies.exit()
     .remove();
 
+  enemies
+    .transition()
+      .duration(2000)
+      .each(function(){
+        d3.select(this).transition()
+          .attr('cx', Math.random() * width)
+          .attr('cy', Math.random() * height);
+      });
+
   return;
 }
 
+
 render(createEnemies);
 
-    // "D3"-ify again
-    // Insert starting pieces into game board element
-// 3. Score Tracking
+var play = function(){
+  var gameTurn = function(){
+    newEnemyPositions = createEnemies();
+    render(newEnemyPositions);
+  }
+  gameTurn();
+  setInterval(gameTurn, 2000);
+}
 
-
-// Oh snap, didn't know you were still here. Awesome. lel
-
+play();
