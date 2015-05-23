@@ -1,7 +1,9 @@
-
 var width = 500;
 var height = 400;
 var numEnemies = 10;
+var highScore = 0;
+var currentScore = 0;
+var collisions = 0;
 
 var gameBoard = d3.select('body')
                   .append('svg:svg')
@@ -70,8 +72,14 @@ var tweenCollision = function(endData) {
 
   return function(t) {
     checkCollision(enemy, function() {
-      console.log('collision detected');
-      //TODO: this
+      ++collisions;
+      if(currentScore > highScore){
+        highScore = currentScore;
+      }
+      currentScore = 0;
+      d3.select("#highScore").text(highScore.toString());
+      d3.select("#collisions").text(collisions.toString());
+      d3.select("#currentScore").text(currentScore.toString());
     });
 
     var enemyNextPos = {
@@ -129,6 +137,10 @@ var play = function(){
 
   gameTurn();
   setInterval(gameTurn, 2000);
+  setInterval(function() {
+    ++currentScore;
+    d3.select("#currentScore").text(currentScore.toString());
+  }, 10);
 }
 
 play();
