@@ -1,12 +1,43 @@
 
 var width = 500;
 var height = 400;
-var gameBoard = d3.select('body').append('svg:svg')
-                .attr('width', 500)
-                .attr('height', 400)
-                .style('background-color', "black");  
-
 var numEnemies = 10;
+
+var gameBoard = d3.select('body').append('svg:svg')
+    .attr('width', width)
+    .attr('height', height)
+    .style('background-color', "black");  
+
+var createPlayer = function(){
+  return [{
+    id: 0,
+    x: width/2,
+    y: height/2,
+  }];
+}
+
+var Player = function(player_data){
+  var drag = d3.behavior.drag()
+               .on('drag', function(){
+                player.attr('cx', d3.event.x)
+                      .attr('cy', d3.event.y);
+               })
+
+  var player = gameBoard.selectAll('.player')
+                        .data([{x: (width/2), y: (height/2), r: 10}])
+                        .enter()
+                        .append('svg:circle')
+                        .attr('class', 'player')
+                        .attr('cx', function(d) {return d.x})
+                        .attr('cy', function(d) {return d.y})
+                        .attr('r', function(d) {return d.r})
+                        .call(drag)
+                        .style('fill', 'blue');
+
+  return Player;
+};
+
+Player(createPlayer());
 
 var createEnemies = function(){
   return _.range(0, numEnemies).map(function(i) {
@@ -17,8 +48,6 @@ var createEnemies = function(){
     };
   });
 };
-
-
 
 var render = function(enemy_data){
   var enemies = gameBoard.selectAll('circle.enemy')
@@ -61,6 +90,7 @@ var play = function(){
     newEnemyPositions = createEnemies();
     render(newEnemyPositions);
   }
+
   gameTurn();
   setInterval(gameTurn, 2000);
 }
