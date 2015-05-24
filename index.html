@@ -1,15 +1,27 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <link rel='stylesheet' type='css' href='styles.css'> 
+    <link rel='stylesheet' type='css' href='styles.css'>
     <script src="underscore.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
   </head>
   <body>
-    <div class="scoreboard">
-      <!-- Modify the scoreboard when important events occur in your game! -->
-      <div class="high">High score: <span id="highScore">0</span></div>
-      <div class="current">Current score: <span id="currentScore">0</span></div>
-      <div class="collisions">Collisions: <span id="collisions">0</span></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-6">
+          <div class="gamespace"></div>
+        </div>
+        <div class="col-sm-6">
+          <h1 class="ninja">Fruit Ninja: Trial of Master Melon</h1>
+          <h2 class="ninja">High Score: <h3 class="ninja" id="highScore">0</h3></h2>
+          <h2 class="ninja">Current Score: <h3 class="ninja" id="currentScore">0</h3></h2>
+          <h2 class="ninja">Collisions: <h3 class="ninja" id="collisions">0</h3></h2>
+        </div>
+        
+      </div>
+
+      <br>
+      
     </div>
     <script src="d3.js" charset="utf-8"></script>
     <script src='watchout.js'></script>

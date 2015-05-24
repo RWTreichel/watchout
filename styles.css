@@ -2,3 +2,34 @@
 
 /* Note: an asteroid image is included in this repo.
 Feel free to use it if you like. */
+body {
+  padding-top: 50px;
+  position: relative;
+}
+.gamespace{
+    background: url('ninja.jpg') no-repeat;
+    position: absolute;
+    background-color: black;
+}
+.player{
+  position: absolute;
+  background-image: url('melon.png');
+  background-size: 100% 100%;
+}
+.enemy{
+  background-image: url('shuriken.png');
+  background-size: 100% 100%;
+  position: absolute;
+  -webkit-animation: rotation .7s infinite linear;
+}
+@-webkit-keyframes rotation {
+  from {-webkit-transform: rotate(0deg);}
+  to   {-webkit-transform: rotate(359deg);}
+}
+@font-face{
+  font-family: ninja;
+  src: url('ninjafont.ttf');
+}
+.ninja {
+  font-family: ninja;
+}
